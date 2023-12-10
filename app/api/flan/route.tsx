@@ -5,7 +5,7 @@ import { NextResponse, NextRequest } from "next/server";
 export async function GET(req: NextRequest) {
   const secret = req.nextUrl.searchParams.get("secret");
 
-  if (secret !== process.env.AJSBSD_API_KEY) {
+  if (secret !== process.env.NEXT_PUBLIC_AJSBSD_API_KEY) {
     return Response.json({ message: "Invalid secret" }, { status: 401 });
   }
 
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const secret = req.nextUrl.searchParams.get("secret");
 
-  if (secret !== process.env.AJSBSD_API_KEY) {
+  if (secret !== process.env.NEXT_PUBLIC_AJSBSD_API_KEY) {
     return Response.json({ message: "Invalid secret" }, { status: 401 });
   }
 
@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
   };
 
   console.log(hf_send);
+  console.log("testing cors");
 
   // https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta
   // https://api-inference.huggingface.co/models/ajsbsd/flan-t5-base-openbsd-faq
