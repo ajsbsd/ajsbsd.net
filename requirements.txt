@@ -1,0 +1,6 @@
+trimesh
+pyrender
+numpy
+imageio
+imageio
+imageio-ffmpeg
