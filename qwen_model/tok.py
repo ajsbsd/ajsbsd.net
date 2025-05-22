@@ -1,0 +1,18 @@
+import tiktoken
+import json
+
+# Simulated OpenAI model tokenizer (cl100k_base is used for gpt-4 and gpt-3.5-turbo)
+encoding = tiktoken.get_encoding("cl100k_base")
+
+response_json = '''
+{
+  "response": "A large language model (LLM) is a type of artificial intelligence model designed to understand and generate human language. Unlike traditional models, which focus on specific tasks like text classification or sentiment analysis, large language models are trained to process and comprehend a vast amount of text, enabling them to understand context, emotions, and abstract concepts.\\n\\n### Key Features:\\n1. **Parameter Size**: Large models have millions or even billions of parameters, allowing them to learn complex patterns in text.\\n2. **Training Data**: They are trained on massive datasets (e.g., Wikipedia, news articles, or specific domains) to improve their ability to understand nuanced language.\\n3. **Context Understanding**: They can grasp context, sarcasm, and cultural nuances, making them more versatile.\\n\\n### Types of Models:\\n- **Transformer-based models**: These are the most common in large models, such as BERT, GPT, or RoBERTa, which use self-attention mechanisms to process sequences of text efficiently.\\n- **Other models**: Some use recurrent neural networks (RNNs), long short-term memory (LSTM), or attention mechanisms.\\n\\n### Applications:\\n- **Language Translation**: Tools like Google Translate or Microsoft Translator.\\n- **Virtual Assistants**: Chatbots and voice assistants.\\n- **Sentiment Analysis**: Tools for evaluating opinions.\\n- **Content Creation**: Writing, summarizing, or generating creative content.\\n\\n### Advantages:\\n- **Powerful Language Understanding**: Can handle complex tasks.\\n- **Scalability**: Large models are trained on huge datasets, making them effective for real-time applications.\\n\\nIn summary, large language models are AI systems that excel at understanding and generating human language, making them invaluable in fields like natural language processing, machine translation, and customer service.",
+  "thinking": "<think>\\nOkay, the user is asking what a large language model is. Let me start by explaining what a large language model is in simple terms. I should mention that they are AI models designed to understand and generate human language. \\n\\nNext, I need to differentiate between large and small models. Large models have many parameters, which makes them more powerful. But I should clarify that they don't have to be the same size as humans. Maybe mention the training data and how that affects the model's ability to understand context.\\n\\nI should also explain the different types of models, like transformer-based models, which are common in large models. It's important to highlight that large models can handle more complex tasks, such as generating text, answering questions, or even understanding abstract concepts.\\n\\nWait, maybe I should also touch on their applications. For example, chatbots, virtual assistants, and language translation tools. Emphasize how these models are used in various industries.\\n\\nI need to keep the explanation clear and avoid jargon. Make sure the answer is comprehensive but not too technical. Also, check if there are any other points I should include, like the trade-offs between size and performance. But maybe that's beyond the scope here. Let me structure the answer with an introduction, explanation of the concept, types, applications, and conclusion.\\n</think>"
+}
+'''
+
+data = json.loads(response_json)
+combined_text = data["thinking"] + "\n" + data["response"]
+
+tokens = encoding.encode(combined_text)
+print(f"Total token count (ChatGPT-style estimate): {len(tokens)}")
