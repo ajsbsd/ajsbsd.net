@@ -1,11 +1,34 @@
-# pip install accelerate
 from transformers import T5Tokenizer, T5ForConditionalGeneration
+import torch
+from datasets import load_dataset
 
-tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-xl")
-model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-xl", device_map="auto")
+# Set device
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
-input_text = "translate English to German: How old are you?"
-input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to("cuda")
+# Load model and tokenizer
+model_path = "./flan-t5-xl"
+tokenizer = T5Tokenizer.from_pretrained(model_path)
+model = T5ForConditionalGeneration.from_pretrained(model_path, torch_dtype=torch.float16).to(device)
 
-outputs = model.generate(input_ids)
-print(tokenizer.decode(outputs[0]))
+# Load dataset
+dataset = load_dataset("paulpall/legalese-sentences_estonian")
+
+# Translate some examples
+for idx, example in enumerate(dataset['train']):
+    estonian_text = example['Corpus']  # Correct key from dataset
+    prompt = f"Translate to English: {estonian_text}"
+    
+    # Tokenize input and move to device
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+    
+    # Generate translation
+    outputs = model.generate(**inputs, max_new_tokens=200, num_beams=4)
+    
+    # Decode result
+    translated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    print(f"Input:  {estonian_text}")
+    print(f"Output: {translated_text}\n")
+
+    if idx >= 10:
+        break

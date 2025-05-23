@@ -1,6 +1,4 @@
+datasets
 transformers
-accelerate
 sentencepiece
-protobuf
-gradio
-openai-whisper
+requirements
