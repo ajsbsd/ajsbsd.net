@@ -1,6 +1,6 @@
-trimesh
-pyrender
-numpy
-imageio
-imageio
-imageio-ffmpeg
+transformers
+accelerate
+sentencepiece
+protobuf
+gradio
+openai-whisper
