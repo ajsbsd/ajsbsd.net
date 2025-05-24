@@ -3,3 +3,4 @@ transformers
 sentencepiece
 requirements
 #sacremoses
+#torch
