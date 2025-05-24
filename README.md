@@ -1,3 +1,5 @@
+## 05.24.2025 - ajsbsd.net python dev library
+
 ## 11.01.2023 - ajsbsd.net website with Hugging Face Chat inference
 
 [Live at ajsbsd.net](https://ajsbsd.net)
